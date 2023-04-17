@@ -1,0 +1,87 @@
+import React, { useState } from "react";
+import { StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+export default function App() {
+  const [veterinarioMessage, setVeterinarioMessage] = useState("");
+  const [recepcãoMessage, setRecepcaoMessage] = useState("");
+
+  const veterinarioOptions = [
+    { key: '1', title: 'Ligar para o MedVet', onPress: () => console.log('Ligando para o Aumigo...') },
+    { key: '2', title: 'Enviando localização para Emergência', onPress: () => console.log('Contato com Ambulância...') }
+  ];
+  const recepcaoOptions = [
+    { key: '1', title: 'Ligar para Recepção', onPress: () => console.log('Entrando em Contato...') }
+  ];
+
+  function renderButtons(options) {
+    return (
+      <View>
+        {options.map(option => (
+          <TouchableOpacity
+            key={option.key}
+            style={styles.buttonContainer}
+            onPress={option.onPress}
+          >
+            <Text style={styles.buttonText}>{option.title}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    );
+  }
+
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.container}>
+        <View style={styles.iconContainer}>
+          <MaterialCommunityIcons name="dog" size={80} color="black" />
+          <Text style={styles.iconText}>Veterinário</Text>
+          {renderButtons(veterinarioOptions)}
+          <Text style={[styles.messageText, { alignSelf: 'flex-start' }]}>Mensagem:</Text>
+          <TextInput value={veterinarioMessage} />
+        </View>
+        <View style={styles.iconContainer}>
+          <MaterialCommunityIcons name="phone" size={80} color="black" />
+          <Text style={styles.iconText}>Recepção</Text>
+          {renderButtons(recepcaoOptions)}
+          <Text style={[styles.messageText, { alignSelf: 'flex-start' }]}>Mensagem:</Text>
+          <TextInput value={recepcãoMessage} />
+        </View>
+      </View>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff"
+  },
+  iconContainer: {
+    alignItems: "center",
+    marginTop: 50
+  },
+  iconText: {
+    fontSize: 32,
+    fontWeight: "bold",
+    marginVertical: 20
+  },
+  buttonContainer: {
+    backgroundColor: "black",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginVertical: 10
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  messageText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginVertical: 10,
+    marginHorizontal: 10
+  }
+});
